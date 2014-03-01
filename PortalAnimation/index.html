@@ -1,0 +1,237 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>proton.js-zone-ImageZone-emitter</title>
+    <meta charset="utf-8">
+    <style type="text/css">
+        body {
+            background-color: #333333;
+            margin: 0px;
+            overflow: hidden;
+        }
+
+        #container {
+            width: 1003px;
+            margin-top: 50px;
+            margin-left: -501px;
+            left: 50%;
+            position: absolute;
+        }
+
+        #testCanvas {
+            background: #000;
+        }
+    </style>
+
+    <!--<link rel="stylesheet" type="text/css" href="http://visionmedia.github.io/move.js/build/build.css">-->
+    <link rel="stylesheet" type="text/css" href="build.css">
+    <!--<script type="text/javascript" src="http://10.172.45.210/library/jquery-1.10.2.min.js"></script>-->
+    <script src="jquery-1.4.1.min.js"></script>
+</head>
+<body>
+    <div id="container">
+        <canvas id="testCanvas"></canvas>
+        <div class="canvas" style="width: 1280px; height: 768px; position: relative; margin-top: -610PX;"></div>
+    </div>
+    <!--<script type="text/javascript" src="http://visionmedia.github.io/move.js/build/build.js"></script>-->
+    <script type="text/javascript" src="build.js"></script>
+    <script src="js/stats.min.js"></script>
+    <script src="js/proton-1.0.0.min.js"></script>
+    <script>
+
+        var move = require('move');
+
+        var canvas;
+        var context;
+        var proton;
+        var renderer;
+        var emitter;
+        var stats;
+        var index;
+        var randomBehaviour;
+        var gravity;
+
+        var globalOffset = -300;
+        //var bubblePositions = [[100, 100, 44, '#009e49'], [200, 200, 44, '#ffb700'], [300, 300, 44, '#692079']];
+
+        var bubblePositions = [[234, 190, 80, '#ffb700'], [184, 223, 112, '#0171c5'], [187, 317, 56, '#009e49'], [296, 169, 65, '#00bbf2'], [347, 188, 43, '#bad709'], [397, 190, 29, '#692079'], [195, 379, 70, '#da1658'], [203, 359, 35, '#692079'], [214, 448, 47, '#bad709'], [252, 468, 40, '#692079'], [276, 491, 28, '#ffb700'], [318, 497, 72, '#692079'], [373, 468, 107, '#0171c5'], [450, 394, 112, '#da1658'], [505, 320, 53, '#00bbf2'], [474, 235, 28, '#bad709'], [429, 203, 59, '#009e49'], [478, 246, 65, '#ffb700'], [526, 295, 20, '#da1658'], [487, 308, 23, '#009e49'], [534, 384, 28, '#da1658'], [483, 366, 34, '#ffb700'], [429, 460, 46, '#009e49'], [620, 171, 64, '#692079'], [651, 221, 50, '#bad709'], [705, 261, 17, '#ffb700'], [728, 345, 36, '#bad709'], [687, 267, 32, '#bad709'], [703, 286, 43, '#692079'], [720, 304, 54, '#0171c5'], [750, 363, 37, '#da1658'], [778, 407, 23, '#bad709'], [773, 389, 19, '#da1658'], [769, 224, 42, '#692079'], [768, 272, 41, '#0171c5'], [774, 333, 23, '#692079'], [770, 301, 33, '#00bbf2'], [775, 358, 25, '#ffb700'], [638, 333, 22, '#da1658'], [627, 391, 47, '#00bbf2'], [624, 352, 61, '#bad709'], [645, 282, 19, '#00bbf2'], [575, 210, 25, '#da1658'], [590, 195, 29, '#ffb700'], [752, 475, 41, '#00bbf2'], [736, 458, 29, '#009e49'], [735, 572, 22, '#00bbf2']];
+
+        Main();
+        function Main() {
+            canvas = document.getElementById("testCanvas");
+            canvas.width = 1003;
+            canvas.height = 610;
+            context = canvas.getContext('2d');
+            //context.globalCompositeOperation = "lighter";
+            //addStats();
+            //loadImage();
+
+            populateBubbles();
+            registerEvent();
+            moveBubbles();
+        }
+
+        function populateBubbles() {
+            //bubblePositions = new Array();
+            var n = bubblePositions.length;
+            for (var i = 0; i < n; i++) {
+                var left = bubblePositions[i][0];
+                var top = bubblePositions[i][1];
+                var radius = bubblePositions[i][2];
+                var color = bubblePositions[i][3];
+
+                addBubble(i, left, top, radius, color);
+            }
+        }
+
+        function addBubble(index, left, top, radius, color) {
+            //var top = GetRandomInteger(200, 600);
+            //var left = GetRandomInteger(0, 999);
+            top = globalOffset;
+
+            var bubbleId = 'bubble_' + index;
+
+            var str = '<div id=' + bubbleId + ' style="width:' + radius + 'px;height:' + radius + 'px;border-radius:' + radius + 'px;background:' + color + ';position:absolute;top:' + top + 'px; left: ' + left + 'px;"></div>';
+            $('.canvas').append(str);
+
+            //bubblePositions[index] = new Array(2);
+            //bubblePositions[index][0] = top;
+            //bubblePositions[index][1] = left;
+        }
+
+        function GetRandomDecimal(Min, Max) {
+            var Range = Max - Min;
+            var Rand = Math.random();
+            return (Min + Rand * Range);
+        }
+
+        function GetRandomInteger(Min, Max) {
+            var Range = Max - Min;
+            var Rand = Math.random();
+            return (Min + Math.round(Rand * Range));
+        }
+
+        function registerEvent() {
+            window.addEventListener('mousedown', function (e) {
+                //moveBubbles();
+            });
+        }
+
+        function moveBubbles() {
+            var n = bubblePositions.length;
+            for (var i = 0; i < n; i++) {
+                var left = bubblePositions[i][0];
+                var top = bubblePositions[i][1] - globalOffset;
+                var duration = GetRandomDecimal(2, 5) + 's';
+                var delay = GetRandomDecimal(0, 3) + 's';
+
+                moveBubble(i, left, top, duration, delay);
+            }
+        }
+
+        function moveBubble(index, left, top, duration, delay) {
+            var bubbleId = '#bubble_' + index;
+            move(bubbleId)//'#bubble_0')
+                .add('margin-top', top)
+                //.add('margin-left', left)
+                .duration(duration)
+                .delay(delay)
+                .end();
+        }
+
+        /***********************************************************************************************/
+
+        function addStats() {
+            stats = new Stats();
+            stats.setMode(2);
+            stats.domElement.style.position = 'absolute';
+            stats.domElement.style.left = '0px';
+            stats.domElement.style.top = '0px';
+            document.getElementById('container').appendChild(stats.domElement);
+        }
+
+        function loadImage_old() {
+            var image = new Image()
+            image.onload = function (e) {
+                var rect = new Proton.Rectangle((canvas.width - e.target.width) / 2, (canvas.height - e.target.height) / 2, e.target.width, e.target.height);
+                context.drawImage(e.target, rect.x, rect.y);
+                createProton(rect);
+                tick();
+            }
+            image.src = 'image/one.png'; //image/logo.png';
+        }
+
+        function createProton(rect) {
+            proton = new Proton;
+            emitter = new Proton.Emitter();
+            //setRate
+            emitter.rate = new Proton.Rate(new Proton.Span(11, 15), new Proton.Span(.02));
+            //addInitialize
+            emitter.addInitialize(new Proton.Position(new Proton.PointZone(0, 0)));
+            emitter.addInitialize(new Proton.Mass(1));
+            emitter.addInitialize(new Proton.Radius(6, 10));
+            emitter.addInitialize(new Proton.Life(2));
+            var imagedata = context.getImageData(rect.x, rect.y, rect.width, rect.height);
+            emitter.addInitialize(new Proton.P(new Proton.ImageZone(imagedata, rect.x, rect.y + 50)));
+            //addBehaviour
+
+            randomBehaviour = new Proton.RandomDrift(2, 2, .2);
+            gravity = new Proton.Gravity(0);
+            emitter.addBehaviour(customScaleBehaviour());
+            emitter.addBehaviour(gravity);
+            emitter.addBehaviour(randomBehaviour);
+            emitter.addBehaviour(new Proton.Color(['#00aeff', '#0fa954', '#54396e', '#e61d5f']));
+            emitter.addBehaviour(new Proton.CrossZone(new Proton.RectZone(0, 0, canvas.width, canvas.height), 'collision'));
+            emitter.emit();
+            //add emitter
+            proton.addEmitter(emitter);
+
+            //canvas renderer
+            renderer = new Proton.Renderer('canvas', proton, canvas);
+            renderer.start();
+
+            //debug
+            //Proton.Debug.drawEmitter(proton, canvas, emitter);
+
+            index = 0;
+            window.addEventListener('mousedown', function (e) {
+                index++;
+                if (index % 3 == 1) {
+                    randomBehaviour.reset(2, 0, .2);
+                    gravity.reset(1.5);
+                } else if (index % 3 == 2) {
+                    randomBehaviour.reset(50, 50, .1);
+                    gravity.reset(0);
+                } else {
+                    randomBehaviour.reset(2, 2, .2);
+                    gravity.reset(0);
+                }
+            });
+        }
+
+        function customScaleBehaviour() {
+            return {
+                initialize: function (particle) {
+                    particle.oldRadius = particle.radius;
+                    particle.scale = 0;
+                },
+                applyBehaviour: function (particle) {
+                    if (particle.energy >= 2 / 3) {
+                        particle.scale = (1 - particle.energy) * 3;
+                    } else if (particle.energy <= 1 / 3) {
+                        particle.scale = particle.energy * 3;
+                    }
+                    particle.radius = particle.oldRadius * particle.scale;
+                }
+            }
+        }
+
+        function tick() {
+            requestAnimationFrame(tick);
+            stats.begin();
+            proton.update();
+            stats.end();
+        }
+		</script>
+</body>
+</html>
