@@ -1,0 +1,14 @@
+C:\Users\jasoli\Documents\GitHub\CenterOnePortalAnimation\BubbleGenerator\BubbleGenerator\bin\Debug\BubbleGenerator.exe.config
+C:\Users\jasoli\Documents\GitHub\CenterOnePortalAnimation\BubbleGenerator\BubbleGenerator\bin\Debug\BubbleGenerator.exe
+C:\Users\jasoli\Documents\GitHub\CenterOnePortalAnimation\BubbleGenerator\BubbleGenerator\bin\Debug\BubbleGenerator.pdb
+C:\Users\jasoli\Documents\GitHub\CenterOnePortalAnimation\BubbleGenerator\BubbleGenerator\obj\Debug\PaintingWindow.baml
+C:\Users\jasoli\Documents\GitHub\CenterOnePortalAnimation\BubbleGenerator\BubbleGenerator\obj\Debug\MainWindow.baml
+C:\Users\jasoli\Documents\GitHub\CenterOnePortalAnimation\BubbleGenerator\BubbleGenerator\obj\Debug\PaintingWindow.g.cs
+C:\Users\jasoli\Documents\GitHub\CenterOnePortalAnimation\BubbleGenerator\BubbleGenerator\obj\Debug\MainWindow.g.cs
+C:\Users\jasoli\Documents\GitHub\CenterOnePortalAnimation\BubbleGenerator\BubbleGenerator\obj\Debug\App.g.cs
+C:\Users\jasoli\Documents\GitHub\CenterOnePortalAnimation\BubbleGenerator\BubbleGenerator\obj\Debug\BubbleGenerator_MarkupCompile.cache
+C:\Users\jasoli\Documents\GitHub\CenterOnePortalAnimation\BubbleGenerator\BubbleGenerator\obj\Debug\BubbleGenerator.g.resources
+C:\Users\jasoli\Documents\GitHub\CenterOnePortalAnimation\BubbleGenerator\BubbleGenerator\obj\Debug\BubbleGenerator.Properties.Resources.resources
+C:\Users\jasoli\Documents\GitHub\CenterOnePortalAnimation\BubbleGenerator\BubbleGenerator\obj\Debug\BubbleGenerator.csproj.GenerateResource.Cache
+C:\Users\jasoli\Documents\GitHub\CenterOnePortalAnimation\BubbleGenerator\BubbleGenerator\obj\Debug\BubbleGenerator.exe
+C:\Users\jasoli\Documents\GitHub\CenterOnePortalAnimation\BubbleGenerator\BubbleGenerator\obj\Debug\BubbleGenerator.pdb
