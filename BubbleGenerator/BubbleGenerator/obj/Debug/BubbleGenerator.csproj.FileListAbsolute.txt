@@ -12,3 +12,4 @@ C:\Users\jasoli\Documents\GitHub\CenterOnePortalAnimation\BubbleGenerator\Bubble
 C:\Users\jasoli\Documents\GitHub\CenterOnePortalAnimation\BubbleGenerator\BubbleGenerator\obj\Debug\BubbleGenerator.csproj.GenerateResource.Cache
 C:\Users\jasoli\Documents\GitHub\CenterOnePortalAnimation\BubbleGenerator\BubbleGenerator\obj\Debug\BubbleGenerator.exe
 C:\Users\jasoli\Documents\GitHub\CenterOnePortalAnimation\BubbleGenerator\BubbleGenerator\obj\Debug\BubbleGenerator.pdb
+C:\Users\jasoli\Documents\GitHub\CenterOnePortalAnimation\BubbleGenerator\BubbleGenerator\obj\Debug\BubbleGenerator.csprojResolveAssemblyReference.cache

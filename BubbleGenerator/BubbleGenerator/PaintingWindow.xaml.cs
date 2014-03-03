@@ -20,8 +20,8 @@ namespace BubbleGenerator
         private int Boundary_Top = 60;
         private int Boundary_Right = 1266;
         private int Boundary_Bottom = 700;
-        private int Radius_Min = 12;
-        private int Radius_Max = 120;
+        private int Radius_Min = 1;
+        private int Radius_Max = 9999;
 
         private double IntersectionFactor = 0.8;
         private Dictionary<RectArea, SolidColorBrush> _BubbleQueue = new Dictionary<RectArea, SolidColorBrush>();
@@ -70,7 +70,7 @@ namespace BubbleGenerator
         private void canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var point = e.GetPosition(canvas);
-            int diameter = _Random.Next(Radius_Min, Radius_Max);
+            int diameter = 64;// _Random.Next(Radius_Min, Radius_Max);
             var brush = ColorSetBrush[GetRandomBrushIndex(0, ColorSet.Count)];
             RectArea rect = new RectArea() { CenterX = point.X, CenterY = point.Y, Width = diameter, Height = diameter };
             _BubbleQueue.Add(rect, brush);
